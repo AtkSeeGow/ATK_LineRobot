@@ -2,6 +2,7 @@ using LineRobot.Web.Initialization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using NLog.Web;
+using System.Net;
 
 namespace LineRobot.Web
 {
@@ -18,7 +19,15 @@ namespace LineRobot.Web
                 .UseNLog()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.ConfigureKestrel(serverOptions =>
+                    {
+                        serverOptions.Listen(IPAddress.Any, 5000);
+                        serverOptions.Listen(IPAddress.Any, 5001, listenOptions =>
+                        {
+                            listenOptions.UseHttps(@"/certificate/certificate.pfx", "000000");
+                        });
+                    })
+                    .UseStartup<Startup>();
                 });
     }
 }
