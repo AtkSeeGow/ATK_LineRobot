@@ -22,6 +22,7 @@ namespace LineRobot.Web.Initialization
             StartupConfiguration.ConfigureServices(services, Configuration);
 
             services.AddScoped<DocumentRepository, DocumentRepository>();
+            services.AddScoped<HandleRepository, HandleRepository>();
 
             services.AddScoped<CryptographyService, CryptographyService>();
 
@@ -30,6 +31,7 @@ namespace LineRobot.Web.Initialization
             services.AddScoped<ILineEventHandler, LineEventBeaconHandler>();
 
             services.AddControllers();
+            services.AddHttpClient();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -74,6 +74,33 @@ namespace LineRobot.Service
             return validResult;
         }
 
+        public string Encrypt(string publicKey, string value)
+        {
+            using (var rsaCryptoServiceProvider = new RSACryptoServiceProvider())
+            {
+                rsaCryptoServiceProvider.FromXmlString(publicKey);
+                var size = (rsaCryptoServiceProvider.KeySize / 8) - 11;
+                var buffer = new byte[size];
+
+                using (MemoryStream inputStream = new MemoryStream(Encoding.UTF8.GetBytes(value)), outputStream = new MemoryStream())
+                {
+                    while (true)
+                    {
+                        int readSize = inputStream.Read(buffer, 0, size);
+                        if (readSize <= 0)
+                            break;
+
+                        var readBytes = new byte[readSize];
+                        Array.Copy(buffer, 0, readBytes, 0, readSize);
+
+                        var encryptBytes = rsaCryptoServiceProvider.Encrypt(readBytes, false);
+                        outputStream.Write(encryptBytes, 0, encryptBytes.Length);
+                    }
+                    return Convert.ToBase64String(outputStream.ToArray());
+                }
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
