@@ -1,0 +1,45 @@
+*.swp
+*.*~
+project.lock.json
+.DS_Store
+*.pyc
+nupkg/
+
+# Visual Studio Code
+.vscode
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# Visual Studio 2015
+.vs/
+
+node_modules/
+
+**/app/**/*.js
+
+**/app/**/*.js.map
+
+!**/app/lib.builder.js
+!**/app/systemjs.config.js
+
+Source/WebOfficialDocumentMainProject\.Web/wwwroot/app/package-lock\.json
